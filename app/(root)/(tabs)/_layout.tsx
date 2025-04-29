@@ -1,14 +1,8 @@
 import { Tabs } from 'expo-router';
-import { View } from 'react-native';    
+import { View, Text } from 'react-native';    
 import { Image } from 'react-native';
 import HomeIcon from '../../assets/icons/HomeIcon'; 
 import SearchIcon from '../../assets/icons/SearchIcon'; 
-
-
-
-
-
-
 
 export default function TabsLayout() {
   return (
@@ -17,30 +11,30 @@ export default function TabsLayout() {
           position: 'absolute',
           minHeight: 70,
           backgroundColor: '#8D99AE',
-          borderTopWidth: 1
-          
+          borderTopWidth: 1,
         },
-
+        tabBarLabelStyle: {
+          marginTop: 8, 
+        },
     }}>
-
-
-        
-        
-
-
       <Tabs.Screen
         name="home" 
         options={{
           title: 'Home',
           headerShown: false,
-          
-          tabBarIcon: ({ focused,color,size }) => (
+          tabBarIcon: ({ focused }) => (
             <HomeIcon
-            
+              size={32}
+              marginTop={16}
+              color={focused ? '#2B2D42' : 'white'}
               focused={focused}
               title="Home"
-              
             />
+          ),
+          tabBarLabel: ({ focused }) => (
+            <Text style={{ color: focused ? '#2B2D42' : 'white', fontSize: 14, marginTop: 8 }}>
+              Home
+            </Text>
           ),
         }}
       />
@@ -49,14 +43,20 @@ export default function TabsLayout() {
         options={{
           title: 'Search',
           headerShown: false,
-            tabBarIcon: ({ focused,color,size }) => (
-                <SearchIcon
-                color={color}
-                size={28}
-                focused={focused}
-                title="Search"
-                />
-            ),
+          tabBarIcon: ({ focused }) => (
+            <SearchIcon
+               marginTop={16}
+              size={32}
+              color={focused ? '#2B2D42' : 'white'}
+              focused={focused}
+              title="Search"
+            />
+          ),
+          tabBarLabel: ({ focused }) => (
+            <Text style={{ color: focused ? '#2B2D42' : 'white', fontSize: 14, marginTop: 7 }}>
+              Search
+            </Text>
+          ),
         }}
       />
     </Tabs>

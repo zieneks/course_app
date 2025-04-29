@@ -1,16 +1,23 @@
 import * as React from "react"
-import Svg, { Path } from "react-native-svg"
-const SearchIcon = (props) => (
+import Svg, { Path,SvgProps } from "react-native-svg"
+
+type SearchIconProps = SvgProps & {
+  color?: string
+  size?: number
+  marginTop?: number
+  focused?: boolean
+}
+
+
+const SearchIcon: React.FC<SearchIconProps> = ({ color, size , ...props }) => (
   <Svg
-    xmlns="http://www.w3.org/2000/svg"
-    width={32}
-    height={32}
+    width={size}
+    height={size}
     fill="none"
-    marg
     {...props}
   >
     <Path
-      stroke="#2B2D42"
+      stroke={color}
       strokeLinecap="round"
       strokeLinejoin="round"
       strokeWidth={2}
