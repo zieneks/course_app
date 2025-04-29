@@ -11,7 +11,7 @@ export default function TabsLayout() {
           position: 'absolute',
           minHeight: 70,
           backgroundColor: '#8D99AE',
-          borderTopWidth: 1,
+          borderTopWidth: 0,
         },
         tabBarLabelStyle: {
           marginTop: 8, 

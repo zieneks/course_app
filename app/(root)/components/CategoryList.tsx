@@ -5,12 +5,13 @@ import axios from 'axios';
 type CategoryListProps = {
   category: string;
   onVideoPress: (videoId: string) => void;
+  showPublicationDate?: boolean; 
 };
 
-const YOUTUBE_API_KEY = 'AIzaSyDj9r76UX3EIBzD6GCgs21bsnw_3z7jqTs'; 
-const MAX_RESULTS = 10;
+const YOUTUBE_API_KEY = 'AIzaSyCUNLLk8g0Ym8HalMLozfgYdOaLESN4Izw';
+const MAX_RESULTS = 1;
 
-const CategoryList: React.FC<CategoryListProps> = ({ category, onVideoPress }) => {
+const CategoryList: React.FC<CategoryListProps> = ({ category, onVideoPress, showPublicationDate }) => {
   const [videos, setVideos] = useState<any[]>([]);
   const [loading, setLoading] = useState(true);
 
@@ -31,7 +32,7 @@ const CategoryList: React.FC<CategoryListProps> = ({ category, onVideoPress }) =
         );
         setVideos(response.data.items);
       } catch (error) {
-        console.error('Error fetching videos:', error);
+        console.error('Error fetching videos:', error.response?.data || error.message);
       } finally {
         setLoading(false);
       }
@@ -63,6 +64,11 @@ const CategoryList: React.FC<CategoryListProps> = ({ category, onVideoPress }) =
           <Text className="text-sm font-semibold text-gray-800" numberOfLines={2}>
             {video.snippet.title}
           </Text>
+          {showPublicationDate && (
+            <Text className="text-xs text-gray-600 ml-36">
+               {new Date(video.snippet.publishedAt).toLocaleDateString()}
+            </Text>
+          )}
         </TouchableOpacity>
       ))}
     </ScrollView>
