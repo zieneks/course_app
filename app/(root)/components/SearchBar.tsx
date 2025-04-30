@@ -17,9 +17,10 @@ const SearchBar: React.FC<SearchBarProps> = ({ onSearch }) => {
 
   const handleSearchSubmit = () => {
     onSearch(searchQuery);
-    router.push({ pathname: '/(root)/(tabs)/search' })
+    router.push({ pathname: '/(root)/(tabs)/search' })}
     
-  };
+  
+
 
   return (
 

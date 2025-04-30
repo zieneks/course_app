@@ -4,11 +4,11 @@ import axios from 'axios';
 
 type CategoryListProps = {
   category: string;
-  onVideoPress: (videoId: string) => void;
+  onVideoPress: (videoId: string, title: string, channelTitle: string, description: string) => void;
   showPublicationDate?: boolean; 
 };
 
-const YOUTUBE_API_KEY = 'AIzaSyCUNLLk8g0Ym8HalMLozfgYdOaLESN4Izw';
+const YOUTUBE_API_KEY = 'AIzaSyBjInI_DHg4mYanOAF2W7JGanXebvEX31s';
 const MAX_RESULTS = 1;
 
 const CategoryList: React.FC<CategoryListProps> = ({ category, onVideoPress, showPublicationDate }) => {
@@ -31,7 +31,7 @@ const CategoryList: React.FC<CategoryListProps> = ({ category, onVideoPress, sho
           }
         );
         setVideos(response.data.items);
-      } catch (error) {
+      } catch (error:any) {
         console.error('Error fetching videos:', error.response?.data || error.message);
       } finally {
         setLoading(false);
@@ -54,7 +54,9 @@ const CategoryList: React.FC<CategoryListProps> = ({ category, onVideoPress, sho
       {videos.map((video) => (
         <TouchableOpacity
           key={video.id.videoId}
-          onPress={() => onVideoPress(video.id.videoId)}
+          onPress={() =>
+            onVideoPress(video.id.videoId, video.snippet.title, video.snippet.channelTitle, video.snippet.description)
+          }
           className="mr-4 w-52"
         >
           <Image

@@ -27,6 +27,9 @@ export default {
     plugins: [
       'expo-router',
       [
+        "react-native-video"],
+      
+      [
         'expo-splash-screen',
         {
           image: './assets/images/splash-icon.png',
