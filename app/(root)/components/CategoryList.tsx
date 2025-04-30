@@ -8,8 +8,8 @@ type CategoryListProps = {
   showPublicationDate?: boolean; 
 };
 
-const YOUTUBE_API_KEY = 'AIzaSyBjInI_DHg4mYanOAF2W7JGanXebvEX31s';
-const MAX_RESULTS = 1;
+const YOUTUBE_API_KEY = 'AIzaSyDrzIsgbD4b-FjAog4yP3I0-aQuHnLbcyQ';
+const MAX_RESULTS = 5;
 
 const CategoryList: React.FC<CategoryListProps> = ({ category, onVideoPress, showPublicationDate }) => {
   const [videos, setVideos] = useState<any[]>([]);

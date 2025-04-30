@@ -19,17 +19,19 @@ const SearchBar: React.FC<SearchBarProps> = ({ onSearch }) => {
     onSearch(searchQuery);
     router.push({ pathname: '/(root)/(tabs)/search' })}
     
-  
+  const handleSettingsPress = () => {
+    router.push('/(root)/components/Settings'); 
+  };
 
 
   return (
 
 
     <View style ={{ flexDirection: 'row', alignItems: 'center', justifyContent: 'space-between' }}>
-    <View style={styles.container}>
-      <SearchIcon color="#888" size={32} style={styles.icon} />
+    <View className='px-4 py-2 flex flex-row items-center bg-white rounded-[14px] border-2 border-gray-300 w-[80%] ml-[5%]'>
+      <SearchIcon color="#888" size={32} className='mx-1' />
       <TextInput
-        style={styles.input}
+        className='flex-1 h-10 text-base px-2'
         value={searchQuery}
         
         onChangeText={setSearchQuery}
@@ -39,41 +41,14 @@ const SearchBar: React.FC<SearchBarProps> = ({ onSearch }) => {
       />
       
     </View>
-    <TouchableOpacity>
-        <SettingsIcon color="#888" size={32} style={styles.settingIcon} />
-      </TouchableOpacity>
+    <TouchableOpacity onPress={handleSettingsPress}>
+      <SettingsIcon color="#888" size={32}  style={{ marginRight: 15 }} />
+    </TouchableOpacity>
     
     </View>
   );
 };
 
-const styles = StyleSheet.create({
-  container: {
-    paddingHorizontal: 16,
-    paddingVertical: 8,
-    flexDirection: 'row',
-    alignItems: 'center',
-    backgroundColor: '#FFFFFF',
-    borderRadius: 14,
-    borderWidth: 2,
-    borderColor: '#D1D5DB',
-    width: '80%',
-    marginLeft: '5%',
-  },
-  icon: {
-    marginHorizontal: 1,
-  },
-  settingIcon:{
-    marginRight: 14,
 
-  },
-
-  input: {
-    flex: 1,
-    height: 40,
-    fontSize: 16,
-    paddingHorizontal: 8,
-  },
-});
 
 export default SearchBar;

@@ -25,6 +25,13 @@ export default {
       favicon: './assets/images/favicon.png',
     },
     plugins: [
+      [
+        "expo-notifications",
+        {
+          "icon": "./assets/notification-icon.png",
+          "color": "#ffffff"
+        }
+      ],
       'expo-router',
       [
         "react-native-video"],

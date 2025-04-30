@@ -5,7 +5,7 @@ import SearchBar from '../components/SearchBar';
 import { useLocalSearchParams, useRouter } from 'expo-router';
 import axios from 'axios';
 
-const YOUTUBE_API_KEY = 'AIzaSyBjInI_DHg4mYanOAF2W7JGanXebvEX31s';
+const YOUTUBE_API_KEY = 'AIzaSyDrzIsgbD4b-FjAog4yP3I0-aQuHnLbcyQ';
 
 const Search = () => {
   const { q } = useLocalSearchParams();

@@ -1,17 +1,52 @@
-import React, { useState } from 'react';
+import React, { useState, useEffect } from 'react';
 import { View, Text, StyleSheet, Dimensions, Alert, TouchableOpacity, ScrollView } from 'react-native';
 import { Video } from 'expo-av';
 import { SafeAreaView } from 'react-native-safe-area-context';
 import { useLocalSearchParams } from 'expo-router';
+import ViewsIcon from '@/app/assets/icons/ViewsIcon';
+import LikesIcon from '@/app/assets/icons/LikesIcon';
+
 
 const { width } = Dimensions.get('window');
+const YOUTUBE_API_KEY = 'AIzaSyDrzIsgbD4b-FjAog4yP3I0-aQuHnLbcyQ';
 
 const VideoDetails = () => {
 
   const video = require('../../assets/video/broadchurch.mp4')
-  const { title, channelTitle, description } = useLocalSearchParams(); 
+  const { id: videoId, title, channelTitle, description } = useLocalSearchParams(); 
   const [paused, setPaused] = useState(false);
   const [activeTab, setActiveTab] = useState<'details' | 'notes'>('details'); 
+  const [statistics, setStatistics] = useState({ viewCount: '0', likeCount: '0' });
+
+  useEffect(() => {
+    const fetchStatistics = async () => {
+      if (!videoId) {
+        console.error('No VIDEO_ID provided.');
+        Alert.alert('Error', 'No video ID provided. Please check the URL.');
+        return;
+      }
+
+      try {
+        const response = await fetch(
+          `https://www.googleapis.com/youtube/v3/videos?part=statistics&id=${videoId}&key=${YOUTUBE_API_KEY}`
+        );
+        const data = await response.json();
+
+        if (data.items && data.items.length > 0) {
+          const stats = data.items[0].statistics;
+          setStatistics({ viewCount: stats.viewCount, likeCount: stats.likeCount });
+        } else {
+          console.error('No video data found for the provided VIDEO_ID.');
+          Alert.alert('Error', 'No video data found. Please check the video ID.');
+        }
+      } catch (error) {
+        console.error('Error fetching video statistics:', error);
+        Alert.alert('Error', 'Failed to fetch video statistics. Please try again later.');
+      }
+    };
+
+    fetchStatistics();
+  }, [videoId]); 
 
   const handleVideoError = (error: any) => {
     console.error('Video error:', error);
@@ -23,9 +58,8 @@ const VideoDetails = () => {
       <Video
         source={video} 
         style={styles.video}
-        useNativeControls={true}
+        useNativeControls={false}
         shouldPlay={!paused}
-        resizeMode="contain"
         onError={handleVideoError}
       />
       <ScrollView style={styles.detailsContainer}>
@@ -62,7 +96,20 @@ const VideoDetails = () => {
           </View>
         ) : (
           <View style={styles.tabContent}>
-            <Text>Add your notes here...</Text>
+            
+          </View>
+        )}
+        {activeTab === 'details' && ( 
+          <View style={styles.infoRow}>
+            <View style={styles.statContainer} >
+            <ViewsIcon size={32} color='white'></ViewsIcon>
+            <Text style={styles.views}>{statistics.viewCount} views</Text>
+            </View>
+            
+            <View style={styles.statContainer}>
+            <LikesIcon size={32} color='white'></LikesIcon>
+            <Text style={styles.likes}>{statistics.likeCount} likes</Text>
+            </View>
           </View>
         )}
       </ScrollView>
@@ -77,6 +124,12 @@ const styles = StyleSheet.create({
     flex: 1,
     backgroundColor: '#fff',
   },
+  statContainer: {
+    flexDirection: 'row', 
+    alignItems: 'center',
+    backgroundColor: '#2B2D42', 
+    padding: 5,
+    borderRadius: 8,},
   video: {
     width: width,
     height: (width * 9) / 16,
@@ -111,7 +164,12 @@ const styles = StyleSheet.create({
   },
   views: {
     fontSize: 14,
-    color: 'gray',
+    color: 'white',
+    backgroundColor: '#2B2D42',
+    padding: 8,
+    paddingLeft: 16,
+    paddingRight: 16,
+    borderRadius: 8,
   },
   actions: {
     flexDirection: 'row',
@@ -166,8 +224,18 @@ const styles = StyleSheet.create({
   },
   tabContent: {
     marginTop: 16,
+    height: 100,
   },
   detailDescription:{marginBottom: 8,
-    fontWeight: 'bold',}
-  
+    fontWeight: 'bold',},
+  likes: {
+    fontSize: 14,
+    color: 'white',
+    marginLeft: 16,
+    backgroundColor: '#2B2D42',
+    padding: 8,
+    paddingLeft: 16,
+    paddingRight: 16,
+    borderRadius: 8,
+  },
 });

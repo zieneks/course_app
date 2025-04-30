@@ -27,6 +27,7 @@ const home = () => {
     router.push({
       pathname: '/(root)/(tabs)/search',
       params: { q: category },
+      
     });
   };
 
@@ -39,7 +40,7 @@ const home = () => {
             <View className="flex-row justify-between px-4 mb-2">
               <Text className="text-xl font-bold">{category}</Text>
               <TouchableOpacity onPress={() => handleShowMorePress(category)}>
-                <Text className="text[#2B2D42] underline text-sm">Show more</Text>
+                <Text className=" poppins text[#2B2D42] underline text-sm">Show more</Text>
               </TouchableOpacity>
             </View>
             <CategoryList
@@ -49,7 +50,7 @@ const home = () => {
               }
               showPublicationDate={true}
             />
-            <View className="h-1 bg-black mt-8 rounded-full" />
+            <View className="h-0.5 bg-black mt-8 rounded-full" />
           </View>
         ))}
       </ScrollView>
