@@ -19,6 +19,8 @@ A mobile application built with **Expo**, **React Native**, and **YouTube Data A
 - [expo-av](https://docs.expo.dev/versions/latest/sdk/av/)
 - [YouTube Data API v3](https://developers.google.com/youtube/v3)
 - [Axios](https://axios-http.com/)
+- [react-native-video](https://docs.thewidlarzgroup.com/react-native-video)
+
 
 ## 🔧 Setup
 
