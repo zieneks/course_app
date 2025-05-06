@@ -24,7 +24,12 @@ A mobile application built with **Expo**, **React Native**, and **YouTube Data A
 
 ## 🔧 Setup
 
-### 1. Clone the repository
+
+
+https://github.com/user-attachments/assets/95ce564d-13b5-4e17-996a-668c902f0aaf
+
+
+
 
 ```bash
 git clone (https://github.com/zieneks/course_app)
